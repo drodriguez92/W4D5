@@ -13,9 +13,19 @@
 require 'rails_helper'
 
 describe User do
+  #presence validations
   it { should validate_presence_of(:username) }
   it { should validate_presence_of(:password_digest) }
   it { should validate_presence_of(:session_token) }
-  it { should validate_uniqueness_of(:username) }
+
+
+  #uniqueness validations
+  describe 'uniqueness' do
+    before :each do
+      create :user
+    end
+    it { should validate_uniqueness_of(:username) }
+    it { should validate_uniqueness_of(:session_token) }
+  end
 
 end
